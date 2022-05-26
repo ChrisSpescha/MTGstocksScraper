@@ -43,7 +43,7 @@ for i in top_cards[-50:]:
         card_dict[num] = {}
     card_dict[num][card_keys[count]] = i.text
     count += 1
-
+print(card_dict)
 losers_df = pd.DataFrame.from_dict(card_dict, orient="index")
 losers_df_reverse = losers_df.iloc[::-1]
 losers_df_reverse.to_csv("top_losers.csv")
