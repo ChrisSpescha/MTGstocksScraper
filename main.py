@@ -1,3 +1,5 @@
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium import webdriver
 from bs4 import BeautifulSoup
@@ -6,8 +8,7 @@ import time
 
 URL = "https://www.mtgstocks.com/interests"
 card_keys = ["Name", "Set", "New_Price", "Old Price", "PCT"]
-chrome_driver_path = "C:/Development/chromedriver.exe"
-driver = webdriver.Chrome(chrome_driver_path)
+driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 
 driver.get(URL)
 time.sleep(2)
@@ -28,7 +29,7 @@ for i in top_cards[:50]:
         card_dict[num] = {}
     card_dict[num][card_keys[count]] = i.text
     count += 1
-
+print(card_dict)
 top_gainers_df = pd.DataFrame.from_dict(card_dict, orient="index")
 top_gainers_df.to_csv("top_gainers.csv")
 
